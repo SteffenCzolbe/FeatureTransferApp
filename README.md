@@ -34,6 +34,7 @@ Start the program with
 ```
 python3 main.py
 ```
+If you used a virtual environment to install the dependencies, you need to activate it with `source venv-feature-transfer/bin/activate` before each program start.
 
 # Add your own Images
 To add your own images, place them in the directory `additional_images`. All common image file formats are accepted. Images should only contain one face. On program startup, the images are preprocessed. Sucessfully processed images are placed in the directory `additional_images_preprocessed`. If no face / more than one face is found in the image, it is ignored.

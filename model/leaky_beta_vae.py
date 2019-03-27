@@ -2,13 +2,16 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class BetaVAE(nn.Module): # 7000 loss
+class LeakyBetaVAE(nn.Module): # 7000 loss
     """
     VAE from paper β-VAE: L EARNING BASIC V ISUAL CONCEPTS WITH A
         CONSTRAINED V ARIATIONAL F RAMEWORK
+
+    improved with leaky rely actuvation function
+    and more layers
     """
     def __init__(self, latent_space=32):
-        super(BetaVAE, self).__init__() # call super constructor
+        super(LeakyBetaVAE, self).__init__() # call super constructor
         
         self.latent_space = latent_space
         
@@ -41,11 +44,11 @@ class BetaVAE(nn.Module): # 7000 loss
         # (3,64,64)
         
     def encode(self, x):
-        h1 = F.relu(self.conv0(x))
-        h2 = F.relu(self.conv1(h1)) 
-        h3 = F.relu(self.conv2(h2)) 
-        h4 = F.relu(self.conv3(h3)) 
-        h5 = F.relu(self.fc4(h4.view(-1, 64*4*4)))
+        h1 = F.leaky_relu(self.conv0(x), negative_slope=0.2)
+        h2 = F.leaky_relu(self.conv1(h1), negative_slope=0.2) 
+        h3 = F.leaky_relu(self.conv2(h2), negative_slope=0.2) 
+        h4 = F.leaky_relu(self.conv3(h3), negative_slope=0.2) 
+        h5 = F.leaky_relu(self.fc4(h4.view(-1, 64*4*4)), negative_slope=0.2)
         return self.mu(h5), self.logvar(h5)
 
     def reparameterize(self, mu, logvar): # reparameterization trick
@@ -54,11 +57,11 @@ class BetaVAE(nn.Module): # 7000 loss
         return eps.mul(std).add_(mu) # returns sample as if drawn from mu, std
 
     def decode(self, z):
-        h6 = F.relu(self.dec(z))
-        h5 = F.relu(self.fc5(h6))
-        h4 = F.relu(self.deconv3(h5.view(-1,64,4,4)))
-        h3 = F.relu(self.deconv2(h4))
-        h2 = F.relu(self.deconv1(h3))
+        h6 = F.leaky_relu(self.dec(z), negative_slope=0.2)
+        h5 = F.leaky_relu(self.fc5(h6), negative_slope=0.2)
+        h4 = F.leaky_relu(self.deconv3(h5.view(-1,64,4,4)), negative_slope=0.2)
+        h3 = F.leaky_relu(self.deconv2(h4), negative_slope=0.2)
+        h2 = F.leaky_relu(self.deconv1(h3), negative_slope=0.2)
         h1 = self.deconv0(h2)
         return torch.sigmoid(h1)
 

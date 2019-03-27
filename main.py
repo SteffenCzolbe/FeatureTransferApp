@@ -36,7 +36,7 @@ def btn_reset_to_defaults():
     sliders[9].val = defaults["Brown_Hair"]
     sliders[10].val = defaults["Gray_Hair"]
     sliders[11].val = defaults["Mustache"]
-    sliders[12].val = defaults["Pale_Skin"]
+    sliders[12].val = defaults["Pale_Skin"] * -1
 
     apply_slider_Settings()
     generator.render()
@@ -55,7 +55,7 @@ def apply_slider_Settings():
     brown_hair = sliders[9].val
     gray_hair = sliders[10].val
     mustache = sliders[11].val
-    pale = sliders[12].val
+    pale = sliders[12].val * -1
     generator.set_settings(attractive, bald, black_hair, blond_hair, brown_hair, glasses, gray_hair, makeup, male, mustache, no_beard, pale, smiling)
     return
 
@@ -80,7 +80,7 @@ buttons = [Button(screen, "Random Image", (160, 40), btn_random, bg=DARKGREY, si
            Button(screen, "Reset", (160, 540), btn_reset_to_defaults, bg=DARKGREY, size=(300, 60), font_size=24)]
 slider_size = (150, 50)
 slider_pos = (10, 150)
-slider_max_val = 0.8
+slider_max_val = 1.0
 sliders = [Slider(screen, "Gender", 0, -slider_max_val, slider_max_val, (slider_pos[0] + slider_size[0] * 0, slider_pos[1] + slider_size[1] * 0), size=slider_size),
            Slider(screen, "Smile", 0, -slider_max_val, slider_max_val, (slider_pos[0] + slider_size[0] * 0, slider_pos[1] + slider_size[1] * 1), size=slider_size),
            Slider(screen, "Black Hair", 0, -slider_max_val, slider_max_val, (slider_pos[0] + slider_size[0] * 0, slider_pos[1] + slider_size[1] * 2), size=slider_size),
@@ -93,7 +93,7 @@ sliders = [Slider(screen, "Gender", 0, -slider_max_val, slider_max_val, (slider_
            Slider(screen, "Brown Hair", 0, -slider_max_val, slider_max_val, (slider_pos[0] + slider_size[0] * 1, slider_pos[1] + slider_size[1] * 2), size=slider_size),
            Slider(screen, "Gray Hair", 0, -slider_max_val, slider_max_val, (slider_pos[0] + slider_size[0] * 1, slider_pos[1] + slider_size[1] * 3), size=slider_size),
            Slider(screen, "Mustache", 0, -slider_max_val, slider_max_val, (slider_pos[0] + slider_size[0] * 1, slider_pos[1] + slider_size[1] * 4), size=slider_size),
-           Slider(screen, "Pale", 0, -slider_max_val, slider_max_val, (slider_pos[0] + slider_size[0] * 1, slider_pos[1] + slider_size[1] * 5), size=slider_size)]
+           Slider(screen, "Tan", 0, -slider_max_val, slider_max_val, (slider_pos[0] + slider_size[0] * 1, slider_pos[1] + slider_size[1] * 5), size=slider_size)]
 
 
 # set up generator

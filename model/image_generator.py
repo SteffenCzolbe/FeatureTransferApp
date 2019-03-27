@@ -56,6 +56,9 @@ class ImageGenerator():
         return
 
     def random_own(self):
+        if not os.path.isdir('./additional_images_preprocessed/'):
+            return False
+
         own_fnames = os.listdir('./additional_images_preprocessed/')
         n = len(own_fnames)
         if n == 0:

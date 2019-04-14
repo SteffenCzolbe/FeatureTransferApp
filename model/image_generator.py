@@ -8,6 +8,9 @@ import sys
 import os
 sys.path.append('./model')
 
+PRESENT_MODE = False
+PRESENT_IMAGES = [191, 80, 5, 79, 26, 0]
+
 class ImageGenerator():
     def __init__(self):
 
@@ -35,15 +38,22 @@ class ImageGenerator():
         # features considered in this programm
         self.features = ["Attractive", "Bald", "Black_Hair", "Blond_Hair", "Brown_Hair", "Eyeglasses", "Gray_Hair", "Heavy_Makeup", "Male", "Mustache", "No_Beard", "Pale_Skin", "Smiling"]
 
+        # set yup index for cyling through own images
+        self.img_index_own = 0
+        self.img_index_present = 0
+
         # load random image
         self.random()
 
-        # set yup index for cyling through own images
-        self.img_index_own = 0
-
     def random(self):
         # pick random image
-        self.img_idx = np.random.randint(self.n)
+        if not PRESENT_MODE:  
+            self.img_idx = np.random.randint(self.n)
+        else:
+            self.img_idx = PRESENT_IMAGES[self.img_index_present]
+            self.img_index_present += 1
+            if self.img_index_present >= len(PRESENT_IMAGES):
+                self.img_index_present = 0
         self.img_fname = self.fnames[self.img_idx]
         self.img_tensor = self.to_tensor(Image.open('./example_images/' + self.img_fname))
 
@@ -53,6 +63,8 @@ class ImageGenerator():
             defaults[feature] = .5 if self.labels[feature][self.img_idx] == 1 else -.5
         self.defaults = defaults
         self.settings = defaults.copy()
+
+        print("showing image with id {}".format(self.img_idx))
         return
 
     def random_own(self):
@@ -119,3 +131,7 @@ class ImageGenerator():
         img = img.resize((64*6, 64*6), Image.NEAREST)
         self.img = img
         return img
+
+    def save(self, fname, size=3):
+        self.img.resize((64*size, 64*size), Image.NEAREST).save(fname)
+        return

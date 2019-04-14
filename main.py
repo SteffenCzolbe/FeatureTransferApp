@@ -1,4 +1,5 @@
 import pygame
+import datetime 
 from pygame_components.colors import *
 from pygame_components.button import Button
 from pygame_components.slider import Slider
@@ -124,6 +125,11 @@ while running:
             for s in sliders:
                 s.hit = False # notify sliders they are no longer hit
             slider_changed = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_s:
+                now = datetime.datetime.now()
+                fname = str(generator.img_idx) + now.strftime('_%H:%M:%S.png')
+                generator.save(fname)
     
     # Move slides
     for s in sliders:

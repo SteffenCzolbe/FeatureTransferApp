@@ -1,7 +1,8 @@
 # FeatureTransferApp
-Image editing for people bad at photoshop.
+Image editing based on a Variational Autoencoder.
 
-Video explanation TBA.
+For usage and explanation consult this youtube video:
+[![Video](https://img.youtube.com/vi/GVmKzTw41ec/hqdefault.jpg)](https://youtu.be/GVmKzTw41ec)
 
 
 # Installation

@@ -2,6 +2,7 @@
 Image editing based on a Variational Autoencoder.
 
 For usage and explanation consult this youtube video:
+
 [![Video](https://img.youtube.com/vi/uszj2MOLY08/hqdefault.jpg)](https://youtu.be/uszj2MOLY08)
 
 
